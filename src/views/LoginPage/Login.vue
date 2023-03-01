@@ -66,7 +66,7 @@
 					api.login(this.loginForm).then(response => {
 						// console.log(response);
                         if(response.meta.status === 200){
-                            localStorage.setItem('token',response.data.token);
+                            localStorage.setItem('Token',response.data.token);
                             this.$router.push('/');
                         }
 					});
