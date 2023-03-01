@@ -64,13 +64,6 @@
 				this.$refs[formName].validate(valid => {
 					if (!valid) return;
 					api.login(this.loginForm).then(response => {
-						// console.log(response);
-<<<<<<< HEAD
-                        if(response.meta.status === 200){
-                            localStorage.setItem('Token',response.data.token);
-                            this.$router.push('/');
-                        }
-=======
 						if (response.meta.status === 200) {
 							this.$message({
 								message: "登录成功",
@@ -80,7 +73,6 @@
 							localStorage.setItem("Token", response.data.token);
 							this.$router.push("/");
 						}
->>>>>>> dev
 					});
 				});
 			},
