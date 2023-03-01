@@ -12,8 +12,8 @@ instance.interceptors.request.use(
 	config => {
 		//开启loading动画
 		loading = Loading.service({
-			lock: true,
-			text: "Loading",
+			target:"#app",
+			text: "加载中",
 			spinner: "el-icon-loading",
 			background: "rgba(0, 0, 0, 0.7)",
 		});
