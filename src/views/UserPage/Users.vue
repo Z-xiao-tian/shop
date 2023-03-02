@@ -185,6 +185,7 @@
 				],
 				//搜索输入框
 				searchQuery: "",
+				searchText: "",
 				//用户数据列表
 				tableData: [],
 				//分页- 每页多少条
@@ -249,6 +250,7 @@
 			search() {
 				this.getUserList(this.searchQuery);
 			},
+
 			//修改用户
 			reviseUser() {
 				const { id, email, mobile } = this.reviseUserFrom;
