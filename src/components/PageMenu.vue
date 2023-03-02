@@ -2,7 +2,7 @@
 	<div id="menu">
 		<div><i class="el-icon-s-unfold menu_btn" @click="changeMenu"></i></div>
 		<el-menu
-			default-active="2"
+			:default-active="defaultActive"
 			class="el-menu-vertical-demo menu"
 			background-color="#313743"
 			text-color="#fff"
@@ -23,6 +23,7 @@
 						v-for="childrenItem in item.children"
 						:key="childrenItem.id"
 						:route="'/' + childrenItem.path"
+						@click="menuActiveStatusFun(childrenItem.id)"
 					>
 						<i class="el-icon-menu"></i>
 						<span>{{ childrenItem.authName }}</span>
@@ -39,6 +40,7 @@
 		name: "PageMenu",
 		data() {
 			return {
+				defaultActive: sessionStorage.getItem("menuActiveStatus"),
 				isCollapse: false,
 				iconObj: {
 					124: "el-icon-s-custom",
@@ -73,6 +75,9 @@
 			},
 			handleClose(key, keyPath) {
 				// console.log(key, keyPath);
+			},
+			menuActiveStatusFun(index) {
+				sessionStorage.setItem("menuActiveStatus", index);
 			},
 			changeMenu() {
 				this.isCollapse === true ? (this.isCollapse = false) : (this.isCollapse = true);
