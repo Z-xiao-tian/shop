@@ -10,9 +10,9 @@
 			<el-main>
 				<el-container>
 					<el-header class="container_header">
-						<breadcrumb/>
+						<breadcrumb />
 					</el-header>
-					<el-main><router-view></router-view></el-main>
+					<el-main class="container_main"><router-view></router-view></el-main>
 				</el-container>
 			</el-main>
 		</el-container>
@@ -58,5 +58,10 @@
 	}
 	.container_header {
 		height: 40px !important;
+	}
+	.container_main,
+	.container_header {
+		margin: 0;
+		padding: 0;
 	}
 </style>

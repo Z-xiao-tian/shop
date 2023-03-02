@@ -10,6 +10,7 @@ let loading;
 //创建请求拦截器
 instance.interceptors.request.use(
 	config => {
+		if(loading) loading.close()
 		//开启loading动画
 		loading = Loading.service({
 			target:"#app",
@@ -23,7 +24,7 @@ instance.interceptors.request.use(
 	},
 	err => {
 		console.log("拦截请求失败", err);
-		return err;
+		return Promise.reject(err);
 	},
 );
 
@@ -35,6 +36,7 @@ instance.interceptors.response.use(
 		return response.data;
 	},
 	err => {
+		loading.close()
 		console.log("响应拦截失败", err);
 		return err;
 	},
