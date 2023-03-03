@@ -34,6 +34,8 @@
 		height: 100%;
 		overflow-x: hidden;
 		overflow-y: auto;
+		min-width: 1450px;
+		min-height: 700px;
 	}
 	::-webkit-scrollbar {
 		width: 0px;

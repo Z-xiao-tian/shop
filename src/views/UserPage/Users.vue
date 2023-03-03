@@ -80,7 +80,7 @@
 		<el-main>
 			<!-- 数据展示 -->
 			<el-table :data="tableData" border style="width: 100%">
-				<el-table-column prop="id"></el-table-column>
+				<el-table-column type="index"></el-table-column>
 				<el-table-column prop="username" label="姓名" width="180"></el-table-column>
 				<el-table-column prop="email" label="邮箱"></el-table-column>
 				<el-table-column prop="mobile" label="电话"></el-table-column>
@@ -153,7 +153,7 @@
 				rules: {
 					username: [{ required: true, message: "用户名不能为空！", trigger: "blur" }],
 					password: [{ required: true, message: "密码不能为空！", trigger: "blur" }],
-					allRules: [{ required: true, message: "此字段不能未空", trigger: "blur" }],
+					allRules: [{ required: true, message: "此字段不能为空", trigger: "blur" }],
 				},
 				//修改用户dialog状态
 				reviseUserDialogStatus: false,

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Loading } from "element-ui";
+import { Loading, Message } from "element-ui";
 
 const instance = axios.create({
 	baseURL: "https://www.liulongbin.top:8888/api/private/v1/",
@@ -10,10 +10,10 @@ let loading;
 //创建请求拦截器
 instance.interceptors.request.use(
 	config => {
-		if(loading) loading.close()
+		if (loading) loading.close();
 		//开启loading动画
 		loading = Loading.service({
-			target:"#app",
+			target: "#app",
 			text: "加载中",
 			spinner: "el-icon-loading",
 			background: "rgba(0, 0, 0, 0.7)",
@@ -36,7 +36,8 @@ instance.interceptors.response.use(
 		return response.data;
 	},
 	err => {
-		loading.close()
+		loading.close();
+		Message.error("网络出错啦！");
 		console.log("响应拦截失败", err);
 		return err;
 	},

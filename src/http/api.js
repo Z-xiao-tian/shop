@@ -40,7 +40,7 @@ function getMenus() {
  * @param {Number} pageSzie - 每页显示条数
  * @param {Number} pageNum - 当前第几页
  */
-async function getUserList(query,pageSzie, pageNum) {
+async function getUserList(query, pageSzie, pageNum) {
 	return await instance
 		.get("/users", {
 			params: {
@@ -93,12 +93,23 @@ function resviceUser(id, email, mobile) {
 
 /**
  * @name 删除用户
- * @param {Number} id - 要删除的的用户的id 
+ * @param {Number} id - 要删除的的用户的id
  * @returns 返回是否删除成功
  */
 function deleteUser(id) {
 	return instance
 		.delete("/users/" + id)
+		.then(response => {
+			return response;
+		})
+		.catch(err => {
+			return err;
+		});
+}
+
+function getRolesList() {
+	return instance
+		.get("/roles")
 		.then(response => {
 			return response;
 		})
@@ -113,5 +124,6 @@ export default {
 	getUserList,
 	addUser,
 	resviceUser,
-	deleteUser
+	deleteUser,
+	getRolesList
 };
