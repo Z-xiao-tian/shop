@@ -13,6 +13,7 @@
 			//退出登录 - 清除Token返回到登录页面
 			quit(){
 				localStorage.removeItem('Token');
+				sessionStorage.removeItem('menuActiveStatus');
 				this.$router.push('/login');
 			}
 		}

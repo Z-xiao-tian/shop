@@ -2,7 +2,8 @@ import axios from "axios";
 import { Loading, Message } from "element-ui";
 
 const instance = axios.create({
-	baseURL: "https://www.liulongbin.top:8888/api/private/v1/",
+	// baseURL: "https://www.liulongbin.top:8888/api/private/v1/",
+	baseURL: "http://127.0.0.1:8888/api/private/v1/",
 	timeout: 1000 * 10,
 });
 
@@ -33,6 +34,9 @@ instance.interceptors.response.use(
 	response => {
 		//请求响应到达后关闭loading动画
 		loading.close();
+		if(response.data.meta.msg === '无效token'){
+			Message.error('登录过期,请重新登录');
+		}
 		return response.data;
 	},
 	err => {

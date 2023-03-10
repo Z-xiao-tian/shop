@@ -12,6 +12,8 @@ import Orders from "@/views/OrdersPage/Orders";
 import Rights from "@/views/RightPage/Rights";
 import Reports from "@/views/ReportsPage/Reports";
 import Categories from "@/views/CategoriesPage/Categories";
+import AddGood from "@/views/GoodsPage/AddGoodPage/AddGood.vue";
+
 
 //创建路由规则
 const routes = [
@@ -63,6 +65,14 @@ const routes = [
 					isAuth: true,
 					title: "商品分类",
 				},
+			},
+			{
+				path:'/goods/add',
+				component:AddGood,
+				meta:{
+					isAuth:true,
+					title:'添加商品'
+				}
 			},
 			{
 				path: "/params",

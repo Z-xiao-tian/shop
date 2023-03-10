@@ -35,8 +35,8 @@
 						<el-option
 							v-for="item in roleOptions"
 							:key="item.value"
-							:label="item.label"
-							:value="item.value"
+							:label="item.roleName"
+							:value="item.id"
 						></el-option>
 					</el-select>
 				</el-form-item>
@@ -88,7 +88,7 @@
 				<el-table-column prop="mg_state" label="状态">
 					<template slot-scope="props">
 						<!-- 状态切换 -->
-						<el-switch v-model="props.row.mg_state"></el-switch>
+						<el-switch v-model="props.row.mg_state" @change="changeUserStatus(props.row)"></el-switch>
 					</template>
 				</el-table-column>
 				<el-table-column prop="username" label="操作" width="200">
@@ -135,6 +135,7 @@
 </template>
 <script>
 	import api from "@/http/api";
+	import instance from "@/http/request";
 
 	export default {
 		name: "Users",
@@ -165,24 +166,12 @@
 				},
 				distributeRoleDialogStatus: false,
 				distributeRoleFrom: {
+					id: "",
 					username: "",
 					role_name: "",
 					value: "",
 				},
-				roleOptions: [
-					{
-						value: -1,
-						label: "超级管理员",
-					},
-					{
-						value: 0,
-						label: "普通管理员",
-					},
-					{
-						value: 1,
-						label: "普通用户",
-					},
-				],
+				roleOptions: [],
 				//搜索输入框
 				searchQuery: "",
 				searchText: "",
@@ -197,6 +186,12 @@
 			};
 		},
 		methods: {
+			//更改用户状态
+			async changeUserStatus(user) {
+				const { data, meta } = await instance.put(`users/${user.id}/state/${user.mg_state}`);
+				if (meta.status !== 200) return this, this.$message.error(meta.msg);
+				this.$message.success(meta.msg);
+			},
 			//添加用户
 			addUser() {
 				api.addUser(this.addUserForm).then(res => {
@@ -268,28 +263,35 @@
 				});
 			},
 			//打开分配用户角色dialog
-			openDistributeRoleDialog(row) {
+			async openDistributeRoleDialog(row) {
+				const { data, meta } = await instance.get("/roles");
+				if (meta.status !== 200) return this.$message.error(meta.msg);
+				this.roleOptions = data;
+				this.distributeRoleFrom.id = row.id;
 				this.distributeRoleFrom.username = row.username;
 				this.distributeRoleFrom.role_name = row.role_name;
 				this.distributeRoleDialogStatus = true;
 			},
 			//分配用户角色
-			distributeRole() {
-				this.distributeRoleDialogStatus = false;
-				this.$message({
-					type: "success",
-					message: "更改成功",
+			async distributeRole() {
+				const { data, meta } = await instance.put(`users/${this.distributeRoleFrom.id}/role`, {
+					rid: this.distributeRoleFrom.value,
 				});
+				if (meta.status !== 200) return this.$message.error(meta.msg);
+				this.$message.success(meta.msg);
+				this.getUserList()
+				this.distributeRoleDialogStatus = false;
+				this.distributeRoleFrom.value = '';
 			},
 			//每页条数切换
 			handleSizeChange(val) {
 				// console.log(`每页 ${val} 条`);
-				this.getUserList('',val, this.pageNum);
+				this.getUserList("", val, this.pageNum);
 			},
 			//页数切换
 			handleCurrentChange(val) {
 				// console.log(`当前页: ${val}`);
-				this.getUserList('',this.pageSize, val);
+				this.getUserList("", this.pageSize, val);
 			},
 			//获取用户列表
 			getUserList(query = "", pagesize = this.pageSize, pagenum = this.pageNum) {

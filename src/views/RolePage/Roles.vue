@@ -183,6 +183,8 @@
 							if (res.meta.status === 201) {
 								this.addRoleDialogStatus = false;
 								this.getRole();
+								this.addRoleForm.roleName = '' 
+								this.addRoleForm.roleDesc = '' 
 								this.$message({
 									type: "success",
 									message: res.meta.msg,
