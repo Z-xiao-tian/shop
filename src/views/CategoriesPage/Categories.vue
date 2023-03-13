@@ -217,6 +217,7 @@
 					cat_level: cloneObj.categoryLevel,
 				});
 				if (meta.status !== 201) return this.$message.error(meta.msg);
+				this.getCategories()
 				this.$message.success(meta.msg);
 				//清空输入
 				this.addForm.cascaderData = [];

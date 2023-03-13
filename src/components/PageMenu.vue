@@ -1,6 +1,6 @@
 <template>
 	<div id="menu">
-		<div><i class="el-icon-s-unfold menu_btn" @click="changeMenu"></i></div>
+		<div><i class="el-icon-s-unfold menu_btn" @click="isCollapse = !isCollapse"></i></div>
 		<el-menu
 			:default-active="defaultActive"
 			class="el-menu-vertical-demo menu"
@@ -78,9 +78,6 @@
 			},
 			menuActiveStatusFun(index) {
 				sessionStorage.setItem("menuActiveStatus", index);
-			},
-			changeMenu() {
-				this.isCollapse === true ? (this.isCollapse = false) : (this.isCollapse = true);
 			},
 			async getMenuList() {
 				let data = await api.getMenus().then(response => response.data);
